@@ -1,18 +1,23 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+  require "EmailManager.php";
 
-require "EmailManager.php";
+  $sendTo = $_POST["email"];
 
-$sendTo = "aepellec@buffalo.edu";
-$mail = new Email();
-$userSubject = "Confirmation Code";
-$userMessage = "Test Message";
-$userHTMLMessage = "
-  Test Message <br/></br>
-  <br/><br/>
-";
+  // Configure email and code to sent
+  $mail = new Email();
+  $subject = "Confirmation Code";
+  $confirmCode = uniqid();
 
-$mail->sendMessage(array($sendTo), $userSubject,$userHTMLMessage,$userMessage);
+  // Set alterntive text
+  $message = "Here is your confirmation code: ". $confirmCode . "\n Use this code
+    to access your evaluation. If it is not used in 15 minutes you will need to request a new one.";
+
+  // set message to send with the code
+  $htmlMessage = "
+    Here is your confirmation code:<br/><br/><b>" . $confirmCode . "</b><br/><br/> Use this code to access
+    your evaluation. If it is not used in 15 minutes you will need to request a new one.";
+
+  // call the code to send the message
+  $mail->sendMessage(array($sendTo), $subject, $htmlMessage, $message);
 ?>
