@@ -10,22 +10,29 @@
         /**
          * Constructor to configure the email -- all should be changed to pull from the database
          */
-        public function __construct(){
-            parent::__construct(true);
+         //Email server details
+         private const hostname = "smtp.gmail.com";
+         private const port = 587;
+         private const username = "noreply.evaluation.code@gmail.com";
+         private const from = "noreply.evaluation.code@cse-buffalo.edu"; //Emaill to show as sending from
+         private const password = "Examp1e!";
 
-            $this->isSMTP();
-            $this->Port = 587;
-            $this->Host = "smtp.gmail.com";
-            $this->SMTPAuth = true;
-            $this->SMTPSecure = 'tls';
-            $this->WordWrap = 50;
-            $this->isHTML(true);
-            $this->setFrom("noreply.evaluation.code@cse-buffalo.edu");
-            $this->FromName = 'CSE 442/542 Evaluation'; //Pull from database
-            $this->Username = "noreply.evaluation.code@gmail.com";
-            $this->Password = "Examp1e!";
-        }
+         public function __construct(){
+             parent::__construct(true);
 
+             $this->isSMTP();
+             $this->Port = self::port;
+             $this->Host = self::hostname;
+             $this->SMTPAuth = true;
+             $this->Username = self::username;
+             $this->Password = self::password;
+             $this->SMTPSecure = 'tls';
+             $this->WordWrap = 50;
+             $this->isHTML(true);
+             $this->setFrom(self::from);
+             // $this->SMTPDebug = 2; //Uncomment to show email errors
+             $this->FromName = 'CSE 442/542 Evaluation Code';
+         }
         /**
          * Sends an email to an array of addresses
          */
