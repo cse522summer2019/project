@@ -83,7 +83,7 @@
             // call the php script to send the email
             $.ajax({
               type: "POST",
-              url: "/email/sendStudentEmail.php",
+              url: "/CSE442-542/2019-Summer/cse-442b/email/sendStudentEmail.php",
               data: {email: email}
             }).then(function(result) {
               // set the modal text

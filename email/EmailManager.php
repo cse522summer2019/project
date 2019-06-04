@@ -11,11 +11,11 @@
          * Constructor to configure the email -- all should be changed to pull from the database
          */
          //Email server details
-         private const hostname = "smtp.gmail.com";
-         private const port = 587;
-         private const username = "noreply.evaluation.code@gmail.com";
-         private const from = "noreply.evaluation.code@cse-buffalo.edu"; //Emaill to show as sending from
-         private const password = "Examp1e!";
+         const hostname = "smtp.gmail.com";
+         const port = 587;
+         const username = "noreply.evaluation.code@gmail.com";
+         const from = "noreply.evaluation.code@cse-buffalo.edu"; //Emaill to show as sending from
+         const password = "Examp1e!";
 
          public function __construct(){
              parent::__construct(true);
