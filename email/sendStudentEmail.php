@@ -3,6 +3,7 @@
   require "EmailManager.php";
 
   $sendTo = $_POST["email"];
+  $sendTo = htmlentities($sendTo);
 
   // Configure email and code to sent
   $mail = new Email();

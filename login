@@ -46,7 +46,7 @@
            <h2 class="text-center">Enter UB Email:</h2>
           <br/>
           <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input type="email" class="form-control" id="email" placeholder="Email" maxlength="30" >
           </div>
           <div class="align-center">
               <button type="button" onclick="event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
