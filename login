@@ -8,13 +8,12 @@
   .form_bg {
       padding:20px;
       border-radius:10px;
-      position: absolute;
       border:1px solid #fff;
       margin: auto;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      top: 30%;
+      right: 38%;
+      bottom: 30%;
+      left: 38%;
       width: 320px;
       height: 280px;
   }
@@ -34,11 +33,10 @@
 <body>
 
   <!-- Header -->
-  <div class="jumbotron" >
+  <div class="jumbotron">
      <h3>Login to Evaluation System</h3>
      <p> Enter your UB Email to get a confirmation code to access your evaluation. The code must be used within 15 minutes or you must request a new one.</p>
   </div>
-
 
     <div class="row">
       <div class="form_bg">
@@ -54,6 +52,7 @@
               <button type="button" onclick="event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
           </div>
       </form>
+    </div>
 
       <!-- Modal window to show the emails response -->
       <div class="modal" tabindex="-1" role="dialog" id="alertModal">
