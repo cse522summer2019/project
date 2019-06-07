@@ -10,15 +10,14 @@ error_reporting(E_ALL);
   $sendTo = $_POST["email"];
   $sendTo = htmlentities($sendTo);
 
-  $isValid = ConfirmationCode::checkIfValidUser($sendTo);
+  $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
 
-  if (!$isValid) {
+  if ($confirmCode == "false") {
     echo "You are not a valid user in this system";
   } else {
     // Configure email and code to sent
     $mail = new Email();
     $subject = "Confirmation Code";
-    $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
 
     // Set alterntive text
     $message = "Here is your confirmation code: ". $confirmCode . "\n Use this code

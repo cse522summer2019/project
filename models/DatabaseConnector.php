@@ -15,6 +15,10 @@
             if(self::$conn === null){
                 self::$conn = mysqli_connect(self::hostname, self::dbusername, self::dbpassword, self::dbName) or die('Unable to connect');
                 mysqli_set_charset(self::$conn,'utf8');
+
+                if (self::$conn->connect_error) {
+                  echo "errorrrr";
+                }
             }
 
             return self::$conn;
