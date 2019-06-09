@@ -13,7 +13,7 @@ error_reporting(E_ALL);
   $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
 
   if ($confirmCode == "false") {
-    echo "You are not a valid user in this system";
+    echo json_encode(array( 'error' => array( 'msg' =>"You are not a valid user in this system")));
   } else {
     // Configure email and code to sent
     $mail = new Email();
@@ -34,14 +34,14 @@ error_reporting(E_ALL);
       $mail->sendMessage(array($sendTo), $subject, $htmlMessage, $message);
 
       // return success confirmation
-      echo "Your confirmation code was successfully send to your email";
+      //echo "Your confirmation code was successfully send to your email";
     } catch (Exception $e) {
       // check if the error is due to an invalid email
       if (strpos($e, "Invalid address") != false) {
-        echo "Your email address is invalid";
+         echo json_encode(array( 'error' => array( 'msg' =>"Your email address is invalid", 'code' => $e->getCode(), ), ));
       } else {
         // Any other error that is not a user error
-        echo "Sorry! Something went wrong. Please try again later.";
+        echo json_encode(array( 'error' => array( 'msg' =>"Sorry! Something went wrong. Please try again later.")));
       }
     }
   }

@@ -34,8 +34,8 @@
 
   <!-- Header -->
   <div class="jumbotron">
-     <h3>Login to Evaluation System</h3>
-     <p> Enter your UB Email to get a confirmation code to access your evaluation. The code must be used within 15 minutes or you must request a new one.</p>
+     <h3>Confirmation Code Sent Succesfully</h3>
+     <p> Enter your unique 13 characters long Confimation code to access Evaluation Page.</p>
   </div>
 
     <div class="row">
@@ -43,13 +43,13 @@
 
       <!-- Email form to get a confirmation code -->
       <form>
-           <h2 class="text-center">Enter UB Email:</h2>
+           <h2 class="text-center">Enter Confimation Code:</h2>
           <br/>
           <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Email" maxlength="30" >
+              <input type="text" class="form-control" id="confimationCode" placeholder="Confirmation Code" maxlength="13" >
           </div>
           <div class="align-center">
-              <button type="button" onclick=" sendMessage()" class="btn btn-primary" id="login">Get Code</button>
+              <button type="button" onclick="" class="btn btn-primary" id="confirmationCodePage">Submit</button>
           </div>
       </form>
     </div>
@@ -82,25 +82,17 @@
             // call the php script to send the email
             $.ajax({
               type: "POST",
-              url: "/CSE442-542/2019-Summer/cse-442b/email/sendStudentEmail.php",
+              url: "/email/sendStudentEmail.php",
               data: {email: email}
             }).then(function(result) {
               // set the modal text
-              if(result.indexOf("error")>-1){
-                var res = JSON.parse(result);
-                document.getElementById("bodyText").innerHTML = res.error.msg;
+              document.getElementById("bodyText").innerHTML = result;
 
-                // clear the email value
-                $("#email").val("");
-                $("#alertModal").modal('show');
-                return;
-              }
               // clear the email value
               $("#email").val("");
 
               // show the modal
-              window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html"
-
+              $("#alertModal").modal('show');
             });
           }
       </script>
