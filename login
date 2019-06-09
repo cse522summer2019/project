@@ -49,7 +49,7 @@
               <input type="email" class="form-control" id="email" placeholder="Email" maxlength="30" >
           </div>
           <div class="align-center">
-              <button type="button" onclick=" sendMessage()" class="btn btn-primary" id="login">Get Code</button>
+              <button type="button" onclick=" event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
           </div>
       </form>
     </div>
