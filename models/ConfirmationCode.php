@@ -1,6 +1,5 @@
 <?php
 
-require "DatabaseConnector.php";
 
 class ConfirmationCode extends DatabaseConnector {
 
