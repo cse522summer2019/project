@@ -1,17 +1,14 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
   require "EmailManager.php";
   require "../models/ConfirmationCode.php";
 
   $sendTo = $_POST["email"];
   $sendTo = htmlentities($sendTo);
 
+  // generate the confirmation code and set the person it is getting sent to
   $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
 
+  // if the confimation code returns false, then the user was not found in the system and is not part of a class
   if ($confirmCode == "false") {
     echo json_encode(array( 'error' => array( 'msg' =>"You are not a valid user in this system")));
   } else {

@@ -54,7 +54,7 @@ class ConfirmationCode extends DatabaseConnector {
     $row = $statement->fetch(PDO::FETCH_ASSOC);
 
     if ($row == NULL) {
-      return "false";
+      return "Your code is not valid.";
     } else {
       // initialize decryption parameters
       $cipher_method = 'aes-128-ctr';
@@ -73,9 +73,9 @@ class ConfirmationCode extends DatabaseConnector {
       // 900 sec = 15 minutes
       // check if the time elapsed was more than 15 minutes
       if (900 > ($now - $tokenParams[1])) {
-        return "true";
+        return "Your code has expired. Please request a new one.";
       } else {
-        return "false";
+        return "Your code has been accepted!";
       }
     }
   }
