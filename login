@@ -70,6 +70,18 @@
 
       <script>
 
+         // bind enter key to send a message
+          $(document).keypress(function(e){
+              if (e.which == 13){
+
+                // prevent the default action
+                e.preventDefault();
+
+                // call send the email
+                sendMessage();
+              }
+          });
+
           function sendMessage() {
             // get the inputted email
             var email = $("#email").val() || "";
