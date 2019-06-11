@@ -1,11 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10.20
--- https://www.phpmyadmin.net
---
--- Host: tethys.cse.buffalo.edu:3306
--- Generation Time: Jun 11, 2019 at 11:03 AM
--- Server version: 5.1.65-log
--- PHP Version: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
