@@ -1,7 +1,6 @@
 <?php
 
-
-class ConfirmationCode extends DatabaseConnector {
+class ConfirmationCode {
 
   /**
    * Generates the confirmation code so that the user can access the system
@@ -72,9 +71,9 @@ class ConfirmationCode extends DatabaseConnector {
       // 900 sec = 15 minutes
       // check if the time elapsed was more than 15 minutes
       if (900 > ($now - $tokenParams[1])) {
-        return "Your code has expired. Please request a new one.";
-      } else {
         return "Your code has been accepted!";
+      } else {
+        return "Your code has expired. Please request a new one.";
       }
     }
   }

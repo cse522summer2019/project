@@ -81,11 +81,16 @@
     // call the php script to check code
     $.ajax({
       type: "POST",
-      url: "/checkStudentCode.php",
+      url: "checkStudentCode.php",
       data: {code:code}
     }).then(function(result) {
       // set the modal text
-      document.getElementById("bodyText").innerHTML = result;
+
+      // convert the json string to json and get the message
+      resultText = JSON.parse(result).error.msg;
+
+      // set the modals message 
+      document.getElementById("bodyText").innerHTML = resultText;
 
       // clear the code value
       $("#code").val("");
