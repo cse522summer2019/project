@@ -34,8 +34,8 @@
 
   <!-- Header -->
   <div class="jumbotron">
-     <h3>Confirmation Code Sent Succesfully</h3>
-     <p> Enter your unique 13 characters long Confimation code to access Evaluation Page.</p>
+      <h3>Enter unique confimation code recieved on your email to access Evaluation page.</h3>
+     <p>This code is valid only for 15 minutes starting from the time it was sent to your email.</p>
   </div>
 
     <div class="row">
@@ -46,10 +46,10 @@
            <h2 class="text-center">Enter Confimation Code:</h2>
           <br/>
           <div class="form-group">
-              <input type="text" class="form-control" id="confimationCode" placeholder="Confirmation Code" maxlength="13" >
+              <input type="text" class="form-control" id="code" placeholder="Confirmation Code" maxlength="50" >
           </div>
           <div class="align-center">
-              <button type="button" onclick="" class="btn btn-primary" id="confirmationCodePage">Submit</button>
+              <button type="button" onclick="checkCode()" class="btn btn-primary" id="Submit">Submit</button>
           </div>
       </form>
     </div>
@@ -62,39 +62,38 @@
               <p id="bodyText"></p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn-sm btn-secondary"  data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
 
-      <script>
+<script>
 
-          function sendMessage() {
-            // get the inputted email
-            var email = $("#email").val() || "";
+  function checkCode() {
 
-            // check if the email is null
-            if (email === "") {
-              return;
-            }
+    var code = $("#code").val() || "";
+    // check if the code is null
+    if (code === "") {
+      return;
+    }
 
-            // call the php script to send the email
-            $.ajax({
-              type: "POST",
-              url: "/email/sendStudentEmail.php",
-              data: {email: email}
-            }).then(function(result) {
-              // set the modal text
-              document.getElementById("bodyText").innerHTML = result;
+    // call the php script to check code
+    $.ajax({
+      type: "POST",
+      url: "/checkStudentCode.php",
+      data: {code:code}
+    }).then(function(result) {
+      // set the modal text
+      document.getElementById("bodyText").innerHTML = result;
 
-              // clear the email value
-              $("#email").val("");
+      // clear the code value
+      $("#code").val("");
 
-              // show the modal
-              $("#alertModal").modal('show');
-            });
-          }
+      // show the modal
+      $("#alertModal").modal('show');
+    });
+  }
       </script>
     </div>
 </div>
