@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: tethys.cse.buffalo.edu:3306
--- Generation Time: Jun 07, 2019 at 05:53 PM
+-- Generation Time: Jun 11, 2019 at 11:03 AM
 -- Server version: 5.1.65-log
 -- PHP Version: 5.3.3
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Logininfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `studentname` varchar(32) NOT NULL,
   `emailaddress` varchar(32) NOT NULL,
-  `confirmationcode` varchar(13) DEFAULT NULL,
+  `confirmationcode` varchar(50) DEFAULT NULL,
   `coursrenumber` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
