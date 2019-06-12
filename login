@@ -49,7 +49,7 @@
               <input type="email" class="form-control" id="email" placeholder="Email" maxlength="30" >
           </div>
           <div class="align-center">
-              <button type="button" onclick="event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
+              <button type="button" onclick=" event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
           </div>
       </form>
     </div>
@@ -70,6 +70,18 @@
 
       <script>
 
+         // bind enter key to send a message
+          $(document).keypress(function(e){
+              if (e.which == 13){
+
+                // prevent the default action
+                e.preventDefault();
+
+                // call send the email
+                sendMessage();
+              }
+          });
+
           function sendMessage() {
             // get the inputted email
             var email = $("#email").val() || "";
@@ -86,13 +98,21 @@
               data: {email: email}
             }).then(function(result) {
               // set the modal text
-              document.getElementById("bodyText").innerHTML = result;
+              if(result.indexOf("error")>-1){
+                var res = JSON.parse(result);
+                document.getElementById("bodyText").innerHTML = res.error.msg;
 
+                // clear the email value
+                $("#email").val("");
+                $("#alertModal").modal('show');
+                return;
+              }
               // clear the email value
               $("#email").val("");
 
               // show the modal
-              $("#alertModal").modal('show');
+              window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html"
+
             });
           }
       </script>
