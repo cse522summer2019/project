@@ -71,6 +71,11 @@ class ConfirmationCode {
       // 900 sec = 15 minutes
       // check if the time elapsed was more than 15 minutes
       if (900 > ($now - $tokenParams[1])) {
+
+        // start a session and save the students email for login
+        session_start();
+        $_SESSION['email'] = $row['emailaddress'];
+
         return "Your code has been accepted!";
       } else {
         return "Your code has expired. Please request a new one.";
