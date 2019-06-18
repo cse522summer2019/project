@@ -36,10 +36,10 @@ function addSingleEvaluation(student, isSelf, index) {
 
   // append the heading
   $("#evaluation").append(heading);
-
+  console.log(index);
   // create the role element
   var role = `Evaluation on  Role : <br>
-      <select class="form-control" name="role_"` + index + `" required>
+      <select class="form-control" name="role_` + index + `" required>
       <option></option>
       <option value=0><strong>0 Point</strong>  -UNSATISFACTORY - <strong> DOES NOT </strong> willingly assume team roles, <strong>RARELY </strong> completes assigned work</option>
       <option value=1><strong> 1 Point</strong>  -DEVELOPING - <strong>USUALLY </strong> accepts assigned team roles, <strong>OCCASIONALLY </strong> completes assigned work</option>
@@ -53,7 +53,7 @@ function addSingleEvaluation(student, isSelf, index) {
 
   // create the leadership element
   var leadership = `Evaluation on Leadership :
-    <select class="form-control" name=leadership_"` + index + `" required>
+    <select class="form-control" name="leadership_` + index + `" required>
       <option></option>
       <option value=0> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>RARELY </strong>takes leaderhip role; DOES not collaborate;<strong> SOMETIMES</strong> willing to assist teammates</option>
       <option value=1><strong>1 Point</strong>  -DEVELOPING - <strong>OCCASIONALLY</strong> shows leaderhip role, MOSTLY collaborate; <strong>GENERALLY</strong> willing to assist teammates</option>
@@ -68,7 +68,7 @@ $("#evaluation").append(leadership);
 
 // create the participation element
 var participation = `Evaluation on Participation :
-  <select class="form-control" name=participation_"` + index + `" required>
+  <select class="form-control" name="participation_` + index + `" required>
     <option></option>
     <option value=0> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>OFTEN</strong> misses meetings;Routinely unprepared for meetings, <strong>RARELY</strong> participates in meetings and does not share ideas.</option>
     <option value=1> <strong>1 Point</strong>  -DEVELOPING -<strong> OCCASIONALLY</strong> misses or does not participate in meetings;<strong>SOMEWHAT</strong> prepared for meetings; Offers UNCLEAR or UNHELPFUL ideas in meetings.</option>
@@ -83,7 +83,7 @@ $("#evaluation").append(participation);
 
 // create the professionalism element for the teammate
 var professionalism = `Evaluation on Professionalism :
-  <select class="form-control" name=professionalism_"` + index + `" required>
+  <select class="form-control" name="professionalism_` + index + `" required>
     <option></option>
     <option value=0><strong>0 Point</strong>  -UNSATISFACTORY -  <strong>OFTEN</strong> discourteous and/or openly critical of teammates;  <strong> DOES NOT</strong> want to listen to any alternative perspective.</option>
     <option value=1><strong> 1 Point</strong>  -DEVELOPING -  <strong>NOT ALWAYS</strong> considerate or courteous towards teammates;  <strong>USUALLY</strong> appreciates teammates prespectives but often unwilling to consider them.</option>
@@ -98,7 +98,7 @@ $("#evaluation").append(professionalism);
 
 // create the quality element for the teammate
 var quality = `Evaluation on Quality :
-  <select class="form-control" name=quality_"` + index + `" required>
+  <select class="form-control" name="quality_` + index + `" required>
     <option></option>
     <option value=0>0 Point  -UNSATISFACTORY -  <strong>RARELY</strong> commits to shared documents; Others  <strong>OFTEN </strong> required to revise, debug or fix their work.</option>
     <option value=1> 1 Point  -DEVELOPING -  <strong>OCCASIONALLY</strong> commits to shared documents; Others  <strong> SOMETIMES </strong>required to revise, debug or fix their work.</option>
