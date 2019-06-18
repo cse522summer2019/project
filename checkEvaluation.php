@@ -9,13 +9,13 @@
   session_start();
 
   // check if the email is set, if not the student is not logged in
-  if (isset($_SESSION['email'])) {
+  if (isset($_SESSION['studentid'])) {
       // get the evaluation if there is a current one
-      $response = Evaluation::getLastEvaluation($_SESSION['email']);
+      $response = Evaluation::getLastEvaluation($_SESSION['studentid']);
       // return the response (noeval or the evaluation)
       echo json_encode($response);
   } else {
-    // redirect to login if the user is not logged in 
+    // redirect to login if the user is not logged in
     header("Location: /CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html");
   }
 

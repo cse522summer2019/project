@@ -74,7 +74,7 @@ class ConfirmationCode {
 
         // start a session and save the students email for login
         session_start();
-        $_SESSION['email'] = $row['emailaddress'];
+        $_SESSION['studentid'] = $row['studentid'];
 
         return "Your code has been accepted!";
       } else {
