@@ -8,19 +8,40 @@ class Evaluation {
   public static function getLastEvaluation($id) {
 
     // connect to the database
-    $pdo = new PDO('mysql:host=tethys.cse.buffalo.edu;dbname=cse442_542_2019_summer_teamb_db', 'aepellec', '50285732');
+    $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
 
-    // get the evaluation that is associated with the students email
-    $statement = $pdo->query("SELECT * FROM Evaluationdata WHERE studentid='" . $id . "'");
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    // escape special characters
+    $conn->real_escape_string($id);
+
+    // prepare sql statement
+    $stmt = $conn->prepare("SELECT * FROM Evaluationdata WHERE studentid=?");
+
+    // bind parameters
+    $stmt->bind_param("s", $id);
+
+    // execute the sql statement
+    $stmt->execute();
+
+    // bind the column results to varaibles
+    $stmt->bind_result($id, $studentid, $role, $lead, $part, $prof, $qual);
+
+    // get the first returned result
+    $result = $stmt->fetch();
+
+    // close the statement and connection 
+    $stmt->close();
+    $conn->close();
 
     // check if the student has already submitted an evaluation
-    if ($row == NULL) {
+    if ($result == NULL) {
       // return a flag that states the student has not submitted an evaluation
       return "noeval";
     } else {
       // return the evalutation
-      return array("role" => $row['role'], "leadership" => $row['leadership'], 'participation' => $row['participation'], 'professionalism' => $row['professionalism'], 'quality' => $row['quality']);
+      return array("role" => $result['role'], "leadership" => $result['leadership'], 'participation' => $result['participation'], 'professionalism' => $result['professionalism'], 'quality' => $result['quality']);
     }
   }
 }
