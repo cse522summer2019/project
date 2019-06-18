@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <style>
+  .form_bg {
+      padding:20px;
+      border-radius:10px;
+      border:1px solid #fff;
+      margin: auto;
+      top: 30%;
+      right: 38%;
+      bottom: 30%;
+      left: 38%;
+      width: 320px;
+      height: 280px;
+  }
+  .align-center {
+      text-align:center;
+  }
+  .mywidth {
+      width: 1100px !important;
+  }
+  .dropdown-menu{
+    width: 1120px !important;
+  }
+  </style>
+</head>
+<body>
+  <div class="jumbotron">
+     <h3>Welcome to Evaluation Page</h3>
+     <p> Select....</p>
+  </div>
+<div class="container align-center" >
+  <h3>Select evaluation from the drop down list below for each of the evaluation metric.</h3>
+  <div class="dropdown" >
+    Evaluation on  Role : <br>
+    <button class="btnRole btn-primary dropdown-toggle mywidth" type="button" data-toggle="dropdown" id = "roleEval">
+      Role
+    <span class="caret"></span></button>
+
+        <ul class="dropdown-menu role" onclick="openLeadership()">
+      <li > <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong> DOES NOT </strong> willingly assume team roles, <strong>RARELY </strong> completes assigned work </a></li>
+      <li><a href="#"> <strong> 1 Point</strong>  -DEVELOPING - <strong>USUALLY </strong> accepts assigned team roles, <strong>OCCASIONALLY </strong> completes assigned work</a></li>
+      <li><a href="#"> <strong> 2 Points</strong> -SATISFACTORY - <strong>ACCEPTS  </strong>assigned team roles, <strong>MOSTLY  </strong>completes assigned work</a></li>
+      <li><a href="#"> <strong> 3 Points</strong> -EXEMPLARY - <strong>ACCEPTS  </strong>all assigned team roles, <strong>ALWAYS </strong> completes assigned work</a></li>
+    </ul>
+  </div>
+  <br>
+  <div class="dropdown">
+        Evaluation on Leadership :
+    <button type="button" class="btnLeadership btn-primary dropdown-toggle mywidth"  data-toggle="dropdown" id = "leadershipEval" >Leadership
+       <span class="caret"></span></button>
+    <ul class="dropdown-menu leaderhip"  onclick="openParticipation()">
+      <li> <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>RARELY </strong>takes leaderhip role; DOES not collaborate;<strong> SOMETIMES</strong> willing to assist teammates</a></li>
+      <li><a href="#">  <strong>1 Point</strong>  -DEVELOPING - <strong>OCCASIONALLY</strong> shows leaderhip role, MOSTLY collaborate; <strong>GENERALLY</strong> willing to assist teammates</a></li>
+      <li><a href="#">  <strong>2 Point</strong>  -SATISFACTORY - Shows an ability to lead when neccessary; Willing to collaborate; Willing to assist teammates</a></li>
+      <li><a href="#">  <strong>3 Point</strong>  -EXEMPLARY - Takes leaderhip role; Is a good collaborator;<strong> ALWAYS </strong> willing to assist teammates</a></li>
+    </ul>
+  </div>
+<br>
+  <div class="dropdown">
+          Evaluation on Participation :
+    <button type="button" class="btnParticipation btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "participationEval">
+       Participation<span class="caret"></span></button>
+    <ul class="dropdown-menu participation" onclick="openProffesionalism()">
+      <li> <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>OFTEN</strong> misses meetings;Routinely unprepared for meetings, <strong>RARELY</strong> participates in meetings and does not share ideas.</a></li>
+      <li><a href="#">  <strong>1 Point</strong>  -DEVELOPING -<strong> OCCASIONALLY</strong> misses or does not participate in meetings;<strong>SOMEWHAT</strong> prepared for meetings; Offers UNCLEAR or UNHELPFUL ideas in meetings.</a></li>
+      <li><a href="#">  <strong>2 Points</strong> -SATISFACTORY -<strong> ATTENDS </strong>and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Offers USEFUL ideas in meetings.</a></li>
+      <li><a href="#">  <strong>3 Points</strong> -EXEMPLARY - <strong>ATTENDS</strong> and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Clearly expresses well-developed ideas in meetings.</a></li>
+    </ul>
+  </div>
+<br>
+  <div class="dropdown">
+      Evaluation on Professionalism :
+    <button type="button" class="btnProfessionalism btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "proffesionalEval">
+       Professionalism<span class="caret"></span></button>
+
+    <ul class="dropdown-menu professionalism" id="professionalism" onclick="openQuality()">
+      <li> <a href="#"><strong>0 Point</strong>  -UNSATISFACTORY -  <strong>OFTEN</strong> discourteous and/or openly critical of teammates;  <strong> DOES NOT</strong> want to listen to any alternative perspective.</a></li>
+      <li><a href="#"><strong> 1 Point</strong>  -DEVELOPING -  <strong>NOT ALWAYS</strong> considerate or courteous towards teammates;  <strong>USUALLY</strong> appreciates teammates prespectives but often unwilling to consider them.</a></li>
+      <li><a href="#"><strong> 2 Points</strong> -SATISFACTORY - <strong> MOSTLY</strong> courteous to teammates;  <strong>VALUES </strong>teammates prespectives but often willing to consider them.</a></li>
+      <li><a href="#"> <strong>3 Points</strong> -EXEMPLARY -  <strong>ALWAYS </strong>courteous to teammates;  <strong>VALUES</strong> teammates prespectives, knowledge and experiences and willing to consider them.</a></li>
+    </ul>
+  </div>
+<br>
+  <div class="dropdown">
+    Evaluation on Quality :
+    <button type="button" class="btnQuality btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "qualityEval">
+       Quality<span class="caret"></span></button>
+
+    <ul class="dropdown-menu quality">
+      <li> <a href="#">0 Point  -UNSATISFACTORY -  <strong>RARELY</strong> commits to shared documents; Others  <strong>OFTEN </strong> required to revise, debug or fix their work.</a></li>
+      <li><a href="#"> 1 Point  -DEVELOPING -  <strong>OCCASIONALLY</strong> commits to shared documents; Others  <strong> SOMETIMES </strong>required to revise, debug or fix their work.</a></li>
+      <li><a href="#"> 2 Points -SATISFACTORY -  <strong>OFTEN</strong> commits to shared documents; Others  <strong>OCCASIONALLY</strong> needed to revise, debug or fix their work.</a></li>
+      <li><a href="#"> 3 Points -EXEMPLARY - <strong> FREQUENTLY</strong> commits to shared documents; Others  <strong>RARELY</strong> needed to revise, debug or fix their work.</a></li>
+    </ul>
+  </div>
+  <br>
+  <br>
+  <div class="align-center">
+      <button type="button" onclick=" event.preventDefault(); sendEvaluation() " class="btn btn-primary" id="evaluation">Submit Evaluation</button>
+  </div>
+</div>
+</html>
+
+<script>
+
+$(document).ready(function () {
+  console.log('here i am ');
+});
+
+  function openLeadership() {
+    $(document).ready(function () {
+        $("#leadershipEval").click();
+    });
+  }
+  function openParticipation() {
+    $(document).ready(function () {
+        $("#participationEval").click();
+    });
+  }
+
+  function openProffesionalism() {
+    $(document).ready(function () {
+        $("#proffesionalEval").click();
+    });
+  } openQuality
+  function openQuality() {
+    $(document).ready(function () {
+        $("#qualityEval").click();
+    });
+  }
+var proffesionalEval = null;
+var roleEval = null;
+var leadershipEval = null;
+var participationEval = null;
+var qualityEval = null;
+  $(function(){
+      $(".role li a ").click(function(){
+
+        $(".btnRole:first-child").text($(this).text());
+        roleEval = $(".btnRole:first-child").val($(this).text());
+
+     });
+  });
+
+  $(function(){
+      $(".leaderhip li a ").click(function(){
+
+        $(".btnLeadership:first-child").text($(this).text());
+        leadershipEval= $(".btnLeadership:first-child").val($(this).text());
+
+     });
+  });
+
+  $(function(){
+      $(".participation li a ").click(function(){
+
+        $(".btnParticipation:first-child").text($(this).text());
+        participationEval= $(".btnParticipation:first-child").val($(this).text());
+
+     });
+  });
+
+   $(function(){
+      $(".professionalism li a ").click(function(){
+
+        $(".btnProfessionalism:first-child").text($(this).text());
+        proffesionalEval = $(".btnProfessionalism:first-child").val($(this).text());
+
+     });
+  });
+  $(function(){
+      $(".quality li a ").click(function(){
+
+        $(".btnQuality:first-child").text($(this).text());
+        qualityEval= $(".btnQuality:first-child").val($(this).text());
+
+     });
+  });
+  function sendEvaluation() {
+  var professionalism =  proffesionalEval.val();
+
+  //Dictionary to store all evals
+
+  var dict = {
+  RoleEval: roleEval.val(),
+  professionalEval: proffesionalEval.val(),
+  participationEval: participationEval.val(),
+  leadershipEval: leadershipEval.val(),
+  qualityEval : qualityEval.val()
+};
+console.log($('#qualityEval').val());
+console.log(professionalism);
+  $.ajax({
+    type: "POST",
+    url: "/old/test.php",
+    data: {professionalism : professionalism}
+  }).then(function(result) {
+    debugger;
+    window.location.href = "/old/testDropDown.html";
+  });
+  }
+
+</script>
