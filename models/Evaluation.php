@@ -11,7 +11,7 @@
       }
 
       // escape special characters
-      $conn->real_escape_string($studentId);
+      $studentId = $conn->real_escape_string($studentId);
 
       // prepare sql statement for getting the students team
       $stmt = $conn->prepare("SELECT teamid FROM StudentTeams WHERE studentid=?");
@@ -55,7 +55,7 @@
         }
       }
 
-      // return array in json formatting 
+      // return array in json formatting
       return array('self' => $studentId, 'team' => $teamArray);
 
       // close the statement and connection
