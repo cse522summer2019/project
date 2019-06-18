@@ -1,12 +1,11 @@
 <?php
   require "models/Evaluation.php";
 
-  // get the students id
-  $studentId = $_POST['studentId'];
-  $studentId = htmlspecialchars($studentId);
+  // start the session for the users id
+  session_start();
 
   //get the students teammates
-  $result = Evaluation::getTeammates($studentId);
+  $result = Evaluation::getTeammates($_SESSION['studentId']);
 
   // return the results
   echo json_encode($result);

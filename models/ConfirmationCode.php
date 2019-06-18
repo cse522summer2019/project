@@ -77,7 +77,7 @@ class ConfirmationCode {
     $confirmCode = $conn->real_escape_string($confirmCode);
 
     // check if the user exists in the system
-    $stmt = $conn->prepare("SELECT * FROM Logininfo WHERE confirmationcode=?");
+    $stmt = $conn->prepare("SELECT studentid FROM Logininfo WHERE confirmationcode=?");
 
     // bind parameters
     $stmt->bind_param("s", $confirmCode);
@@ -85,7 +85,8 @@ class ConfirmationCode {
     // execute the sql statement
     $stmt->execute();
 
-    // see if there is any results 
+    $stmt->bind_result($id);
+    // see if there is any results
     $result = $stmt->fetch();
 
     if ($result == false) {
@@ -108,12 +109,18 @@ class ConfirmationCode {
       // 900 sec = 15 minutes
       // check if the time elapsed was more than 15 minutes
       if (900 > ($now - $tokenParams[1])) {
+        // start the session and set the student id
+        session_start();
+        $_SESSION['studentId'] = $id;
+
         return "Your code has been accepted!";
       } else {
         return "Your code has expired. Please request a new one.";
       }
-    }
+    $stmt->close();
+    $conn->close();
   }
+}
 }
 
  ?>

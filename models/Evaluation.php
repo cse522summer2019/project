@@ -34,7 +34,7 @@
       $teamArray = array();
 
       // prepare the query to get the students team members
-      $stmt = $conn->prepare("SELECT studentid FROM StudentTeams WHERE teamid=?");
+      $stmt = $conn->prepare("SELECT Logininfo.studentid, studentname FROM StudentTeams LEFT JOIN Logininfo ON Logininfo.studentid = StudentTeams.studentid where teamid=?");
 
       // bind the team number to the query
       $stmt->bind_param("i", $team);
@@ -43,20 +43,23 @@
       $stmt->execute();
 
       // bind the student id to the student variable
-      $stmt->bind_result($student);
+      $stmt->bind_result($id, $name);
+      $studentName = "";
 
       // loop through the team members
       while($stmt->fetch()) {
 
         // dont add the student whose evaluation this is
-        if ($student != $studentId) {
+        if ($id != $studentId) {
           // add the teammates
-          $teamArray[] = $student;
+          $teamArray[] = array('studentId' => $id, 'studentName' => $name);
+        } else {
+          $studentName = $name;
         }
       }
 
       // return array in json formatting
-      return array('self' => $studentId, 'team' => $teamArray);
+      return array('self' => array('studentId' => $studentId, 'studentName' => $name), 'team' => $teamArray);
 
       // close the statement and connection
       $stmt->close();
