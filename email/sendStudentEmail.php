@@ -1,9 +1,14 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
   require "EmailManager.php";
   require "../models/ConfirmationCode.php";
 
   $sendTo = $_POST["email"];
-  $sendTo = htmlentities($sendTo);
+  $sendTo = htmlspecialchars($sendTo);
 
   // generate the confirmation code and set the person it is getting sent to
   $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
@@ -18,12 +23,12 @@
 
     // Set alterntive text
     $message = "Here is your confirmation code: ". $confirmCode . "\n Use this code
-      to access your evaluation. If it is not used in 15 minutes you will need to request a new one.";
+      to access your evaluation. If it is not used in 15 minutes you will need to request a new one. Enter your code at: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
 
     // set message to send with the code
     $htmlMessage = "
       Here is your confirmation code:<br/><br/><b>" . $confirmCode . "</b><br/><br/> Use this code to access
-      your evaluation. If it is not used in 15 minutes you will need to request a new one.";
+      your evaluation. If it is not used in 15 minutes you will need to request a new one.<br>Enter your code at: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
 
     // call the code to send the message
     try {
