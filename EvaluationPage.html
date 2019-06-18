@@ -37,11 +37,12 @@
      <p> Select....</p>
   </div>
   <h3>Select evaluation from the drop down list below for each of the evaluation metric for each of your teammates.</h3>
-  <form action='' method="POST">
+  <form action='submitEvaluation.php' method="post">
     <div class="container align-center" id="evaluation" ></div>
-    <input type="hidden" id="numEval"></input>
+    <input type="hidden" id="numEval" name="numEval"></input>
+    <br>
     <div class="container align-center">
-      <button type="submit" class="btn-lg btn-success" id="submitBtn">Submit Evaluations</button>
+      <button type="submit" class="btn-lg btn-primary" id="submitBtn">Submit Evaluations</button>
     </div>
   </form>
 </html>

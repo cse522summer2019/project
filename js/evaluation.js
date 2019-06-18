@@ -33,34 +33,28 @@ function addSingleEvaluation(student, isSelf, index) {
   $("#evaluation").append(heading);
 
   // create the role element
-  var role = `<div class="dropdown" >
-    Evaluation on  Role : <br>
-    <button class="btnRole btn-primary dropdown-toggle mywidth" type="button" data-toggle="dropdown" id = "roleEval_` + index +`">
-      Role
-    <span class="caret"></span></button>
-
-        <ul class="dropdown-menu role" onclick="openLeadership()">
-      <li > <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong> DOES NOT </strong> willingly assume team roles, <strong>RARELY </strong> completes assigned work </a></li>
-      <li><a href="#"> <strong> 1 Point</strong>  -DEVELOPING - <strong>USUALLY </strong> accepts assigned team roles, <strong>OCCASIONALLY </strong> completes assigned work</a></li>
-      <li><a href="#"> <strong> 2 Points</strong> -SATISFACTORY - <strong>ACCEPTS  </strong>assigned team roles, <strong>MOSTLY  </strong>completes assigned work</a></li>
-      <li><a href="#"> <strong> 3 Points</strong> -EXEMPLARY - <strong>ACCEPTS  </strong>all assigned team roles, <strong>ALWAYS </strong> completes assigned work</a></li>
-    </ul>
+  var role = `Evaluation on  Role : <br>
+      <select class="form-control" name="role_"` + index + `" required>
+      <option></option>
+      <option value=0><strong>0 Point</strong>  -UNSATISFACTORY - <strong> DOES NOT </strong> willingly assume team roles, <strong>RARELY </strong> completes assigned work</option>
+      <option value=1><strong> 1 Point</strong>  -DEVELOPING - <strong>USUALLY </strong> accepts assigned team roles, <strong>OCCASIONALLY </strong> completes assigned work</option>
+      <option value=2><strong> 2 Points</strong> -SATISFACTORY - <strong>ACCEPTS  </strong>assigned team roles, <strong>MOSTLY  </strong>completes assigned work</option>
+      <option value=3><strong> 3 Points</strong> -EXEMPLARY - <strong>ACCEPTS  </strong>all assigned team roles, <strong>ALWAYS </strong> completes assigned work</option>
+    </select>
   </div><br>`
 
   // add role to the page for the teammate
   $("#evaluation").append(role);
 
   // create the leadership element
-  var leadership = `<div class="dropdown">
-        Evaluation on Leadership :
-    <button type="button" class="btnLeadership btn-primary dropdown-toggle mywidth"  data-toggle="dropdown" id = "leadershipEval_"` + index +` >Leadership
-       <span class="caret"></span></button>
-    <ul class="dropdown-menu leaderhip"  onclick="openParticipation()">
-      <li> <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>RARELY </strong>takes leaderhip role; DOES not collaborate;<strong> SOMETIMES</strong> willing to assist teammates</a></li>
-      <li><a href="#">  <strong>1 Point</strong>  -DEVELOPING - <strong>OCCASIONALLY</strong> shows leaderhip role, MOSTLY collaborate; <strong>GENERALLY</strong> willing to assist teammates</a></li>
-      <li><a href="#">  <strong>2 Point</strong>  -SATISFACTORY - Shows an ability to lead when neccessary; Willing to collaborate; Willing to assist teammates</a></li>
-      <li><a href="#">  <strong>3 Point</strong>  -EXEMPLARY - Takes leaderhip role; Is a good collaborator;<strong> ALWAYS </strong> willing to assist teammates</a></li>
-    </ul>
+  var leadership = `Evaluation on Leadership :
+    <select class="form-control" name=leadership_"` + index + `" required>
+      <option></option>
+      <option value=0> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>RARELY </strong>takes leaderhip role; DOES not collaborate;<strong> SOMETIMES</strong> willing to assist teammates</option>
+      <option value=1><strong>1 Point</strong>  -DEVELOPING - <strong>OCCASIONALLY</strong> shows leaderhip role, MOSTLY collaborate; <strong>GENERALLY</strong> willing to assist teammates</option>
+      <option value=2><strong>2 Point</strong>  -SATISFACTORY - Shows an ability to lead when neccessary; Willing to collaborate; Willing to assist teammates</option>
+      <option value=3><strong>3 Point</strong>  -EXEMPLARY - Takes leaderhip role; Is a good collaborator;<strong> ALWAYS </strong> willing to assist teammates</option>
+    </select>
   </div>
 <br>`;
 
@@ -68,15 +62,13 @@ function addSingleEvaluation(student, isSelf, index) {
 $("#evaluation").append(leadership);
 
 // create the participation element
-var participation = `<div class="dropdown">
-        Evaluation on Participation :
-  <button type="button" class="btnParticipation btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "participationEval_`+ index + `">
-     Participation<span class="caret"></span></button>
-  <ul class="dropdown-menu participation" onclick="openProffesionalism()">
-    <li> <a href="#"> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>OFTEN</strong> misses meetings;Routinely unprepared for meetings, <strong>RARELY</strong> participates in meetings and does not share ideas.</a></li>
-    <li><a href="#">  <strong>1 Point</strong>  -DEVELOPING -<strong> OCCASIONALLY</strong> misses or does not participate in meetings;<strong>SOMEWHAT</strong> prepared for meetings; Offers UNCLEAR or UNHELPFUL ideas in meetings.</a></li>
-    <li><a href="#">  <strong>2 Points</strong> -SATISFACTORY -<strong> ATTENDS </strong>and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Offers USEFUL ideas in meetings.</a></li>
-    <li><a href="#">  <strong>3 Points</strong> -EXEMPLARY - <strong>ATTENDS</strong> and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Clearly expresses well-developed ideas in meetings.</a></li>
+var participation = `Evaluation on Participation :
+  <select class="form-control" name=participation_"` + index + `" required>
+    <option></option>
+    <option value=0> <strong>0 Point</strong>  -UNSATISFACTORY - <strong>OFTEN</strong> misses meetings;Routinely unprepared for meetings, <strong>RARELY</strong> participates in meetings and does not share ideas.</option>
+    <option value=1> <strong>1 Point</strong>  -DEVELOPING -<strong> OCCASIONALLY</strong> misses or does not participate in meetings;<strong>SOMEWHAT</strong> prepared for meetings; Offers UNCLEAR or UNHELPFUL ideas in meetings.</option>
+    <option value=2> <strong>2 Points</strong> -SATISFACTORY -<strong> ATTENDS </strong>and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Offers USEFUL ideas in meetings.</option>
+    <option value=3> <strong>3 Points</strong> -EXEMPLARY - <strong>ATTENDS</strong> and PARTICIPATES in most meetings; <strong>PREPARED</strong> for meetings; Clearly expresses well-developed ideas in meetings.</option>
   </ul>
 </div>
 <br>`;
@@ -85,16 +77,13 @@ var participation = `<div class="dropdown">
 $("#evaluation").append(participation);
 
 // create the professionalism element for the teammate
-var professionalism = `<div class="dropdown">
-    Evaluation on Professionalism :
-  <button type="button" class="btnProfessionalism btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "proffesionalEval_` + index + `">
-     Professionalism<span class="caret"></span></button>
-
-  <ul class="dropdown-menu professionalism" id="professionalism" onclick="openQuality()">
-    <li> <a href="#"><strong>0 Point</strong>  -UNSATISFACTORY -  <strong>OFTEN</strong> discourteous and/or openly critical of teammates;  <strong> DOES NOT</strong> want to listen to any alternative perspective.</a></li>
-    <li><a href="#"><strong> 1 Point</strong>  -DEVELOPING -  <strong>NOT ALWAYS</strong> considerate or courteous towards teammates;  <strong>USUALLY</strong> appreciates teammates prespectives but often unwilling to consider them.</a></li>
-    <li><a href="#"><strong> 2 Points</strong> -SATISFACTORY - <strong> MOSTLY</strong> courteous to teammates;  <strong>VALUES </strong>teammates prespectives but often willing to consider them.</a></li>
-    <li><a href="#"> <strong>3 Points</strong> -EXEMPLARY -  <strong>ALWAYS </strong>courteous to teammates;  <strong>VALUES</strong> teammates prespectives, knowledge and experiences and willing to consider them.</a></li>
+var professionalism = `Evaluation on Professionalism :
+  <select class="form-control" name=professionalism_"` + index + `" required>
+    <option></option>
+    <option value=0><strong>0 Point</strong>  -UNSATISFACTORY -  <strong>OFTEN</strong> discourteous and/or openly critical of teammates;  <strong> DOES NOT</strong> want to listen to any alternative perspective.</option>
+    <option value=1><strong> 1 Point</strong>  -DEVELOPING -  <strong>NOT ALWAYS</strong> considerate or courteous towards teammates;  <strong>USUALLY</strong> appreciates teammates prespectives but often unwilling to consider them.</option>
+    <option value=2><strong> 2 Points</strong> -SATISFACTORY - <strong> MOSTLY</strong> courteous to teammates;  <strong>VALUES </strong>teammates prespectives but often willing to consider them.</option>
+    <option value=3><strong>3 Points</strong> -EXEMPLARY -  <strong>ALWAYS </strong>courteous to teammates;  <strong>VALUES</strong> teammates prespectives, knowledge and experiences and willing to consider them.</option>
   </ul>
 </div>
 <br>`;
@@ -103,36 +92,33 @@ var professionalism = `<div class="dropdown">
 $("#evaluation").append(professionalism);
 
 // create the quality element for the teammate
-var quality = `<div class="dropdown">
-  Evaluation on Quality :
-  <button type="button" class="btnQuality btn-primary dropdown-toggle mywidth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id = "qualityEval_` + index + `">
-     Quality<span class="caret"></span></button>
-
-  <ul class="dropdown-menu quality">
-    <li> <a href="#">0 Point  -UNSATISFACTORY -  <strong>RARELY</strong> commits to shared documents; Others  <strong>OFTEN </strong> required to revise, debug or fix their work.</a></li>
-    <li><a href="#"> 1 Point  -DEVELOPING -  <strong>OCCASIONALLY</strong> commits to shared documents; Others  <strong> SOMETIMES </strong>required to revise, debug or fix their work.</a></li>
-    <li><a href="#"> 2 Points -SATISFACTORY -  <strong>OFTEN</strong> commits to shared documents; Others  <strong>OCCASIONALLY</strong> needed to revise, debug or fix their work.</a></li>
-    <li><a href="#"> 3 Points -EXEMPLARY - <strong> FREQUENTLY</strong> commits to shared documents; Others  <strong>RARELY</strong> needed to revise, debug or fix their work.</a></li>
+var quality = `Evaluation on Quality :
+  <select class="form-control" name=quality_"` + index + `" required>
+    <option></option>
+    <option value=0>0 Point  -UNSATISFACTORY -  <strong>RARELY</strong> commits to shared documents; Others  <strong>OFTEN </strong> required to revise, debug or fix their work.</option>
+    <option value=1> 1 Point  -DEVELOPING -  <strong>OCCASIONALLY</strong> commits to shared documents; Others  <strong> SOMETIMES </strong>required to revise, debug or fix their work.</option>
+    <option value=2> 2 Points -SATISFACTORY -  <strong>OFTEN</strong> commits to shared documents; Others  <strong>OCCASIONALLY</strong> needed to revise, debug or fix their work.</option>
+    <option value=3> 3 Points -EXEMPLARY - <strong> FREQUENTLY</strong> commits to shared documents; Others  <strong>RARELY</strong> needed to revise, debug or fix their work.</option>
   </ul>
 </div>
 <br>
 <br>`;
 
 // append the quality element to the page
-$("#evalutation").append(quality);
+$("#evaluation").append(quality);
 
 // associate an index with a student id
-var studentId = `<input type="hidden" id="student_` + index + `"></input>`;
+var studentId = `<input type="hidden" id="student_` + index + `" name="student_` + index + `"></input>`;
 $("#evaluation").append(studentId);
 
-// set the student id 
+// set the student id
 document.getElementById("student_" + index).value = student.studentId;
 
 }
 
   function openLeadership() {
     $(document).ready(function () {
-        $("#leadershipEval").click();
+        $("#roleEval").click();
     });
   }
   function openParticipation() {
