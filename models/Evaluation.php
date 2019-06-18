@@ -59,7 +59,7 @@
       }
 
       // return array in json formatting
-      return array('self' => array('studentId' => $studentId, 'studentName' => $name), 'team' => $teamArray);
+      return array('self' => array('studentId' => intval($studentId), 'studentName' => $name), 'team' => $teamArray);
 
       // close the statement and connection
       $stmt->close();
