@@ -29,8 +29,13 @@
      $teammateId = $_POST['student_' . $i];
 
      /*
-     PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE 
+     PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE
      */
+
+     $_SESSION = array();
+     session_destroy();
+
+     // redirect to thank you for submission page here
    }
  }
  ?>
