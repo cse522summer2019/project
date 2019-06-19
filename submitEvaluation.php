@@ -31,11 +31,13 @@
      /*
      PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE
      */
-
-     $_SESSION = array();
-     session_destroy();
-
-     // redirect to thank you for submission page here
    }
+
+
+   echo "Your reviews have sucessfully submitted";
+   $_SESSION = array();
+   session_destroy();
+
+   // redirect to thank you for submission page here
  }
  ?>

@@ -90,7 +90,7 @@ class ConfirmationCode {
     $result = $stmt->fetch();
 
     if ($result == false) {
-      return echo json_encode(array( 'error' => array( 'msg' => "Your code is not valid.")));
+      return json_encode(array( 'error' => array( 'msg' => "Your code is not valid.")));
     } else {
       // initialize decryption parameters
       $cipher_method = 'aes-128-ctr';
