@@ -94,19 +94,19 @@
       url: "checkStudentCode.php",
       data: {code:code}
     }).then(function(result) {
-      // set the modal text
+      if(result.indexOf("error")>-1){
+        var res = JSON.parse(result);
+        document.getElementById("bodyText").innerHTML = res.error.msg;
 
-      // convert the json string to json and get the message
-      resultText = JSON.parse(result).error.msg;
-
-      // set the modals message
-      document.getElementById("bodyText").innerHTML = resultText;
-
-      // clear the code value
+        // clear the code value
+        $("#code").val("");
+        // show the modal
+        $("#alertModal").modal('show');
+        return;
+      }
       $("#code").val("");
-
       // show the modal
-      $("#alertModal").modal('show');
+      window.location.href = "/CSE442-542/2019-Summer/cse-442b/EvaluationPage.html"
     });
   }
       </script>
