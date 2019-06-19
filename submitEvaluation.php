@@ -34,7 +34,7 @@
    }
 
 
-   echo "Your reviews have sucessfully submitted";
+   echo "<h1>Thanks for your reviews!</h1>";
    $_SESSION = array();
    session_destroy();
 
