@@ -14,5 +14,5 @@ error_reporting(E_ALL);
   $response = ConfirmationCode::verifyValidCode($confirmCode);
 
   // return the response for the user to see
-  echo json_encode(array( 'error' => array( 'msg' => $response)));
+  echo $response;
  ?>

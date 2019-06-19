@@ -90,7 +90,7 @@ class ConfirmationCode {
     $result = $stmt->fetch();
 
     if ($result == false) {
-      return "Your code is not valid.";
+      return echo json_encode(array( 'error' => array( 'msg' => "Your code is not valid.")));
     } else {
       // initialize decryption parameters
       $cipher_method = 'aes-128-ctr';
@@ -113,9 +113,9 @@ class ConfirmationCode {
         session_start();
         $_SESSION['studentId'] = $id;
 
-        return "Your code has been accepted!";
+        return json_encode(array( 'success' => array( 'msg' => "Your code has been accepted!")));
       } else {
-        return "Your code has expired. Please request a new one.";
+        return json_encode(array( 'error' => array( 'msg' => "Your code has expired. Please request a new one.")));
       }
     $stmt->close();
     $conn->close();
