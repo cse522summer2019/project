@@ -1,7 +1,13 @@
 <?php
+  require "models/Evaluation.php";
 /*
   start of saving evaluation to the database
   */
+  $conn = new mysqli("tethys.cse.buffalo.edu", "lingbohu", "50291087", "cse442_542_2019_summer_teamb_db");
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
 // get the number of evaluations
  $numEval = $_POST['numEval'];
@@ -31,9 +37,20 @@
      /*
      PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE
      */
+
+     $teammateId = Evaluation::getTeammates($studentId);
+
+     $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=?");
+
+     // bind parameters
+     $stmt->bind_param("sssssii", $role, $lead, $part, $prof, $quality, $teammateId, $studentId);
+
+     // execute the sql statement
+     $stmt->execute();
+
+     $stmt->close();
+     $conn->close();
    }
-
-
    echo "<h1>Thanks for your reviews!</h1>";
    $_SESSION = array();
    session_destroy();
