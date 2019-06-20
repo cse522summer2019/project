@@ -1,4 +1,7 @@
 <?php
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
   class Evaluation {
     public static function getTeammates($studentId) {
       // connect to the database
@@ -98,10 +101,12 @@
 
       // execute the sql statement
       $stmt->execute();
-
+      $stmt->store_result();
       $stmt->bind_result($checkId);
-
-        if ($stmt->fetch()) { // if data exist update the data
+      echo "heree1";
+        echo $stmt->num_rows;
+        if ($stmt->num_rows > 0) { // if data exist update the data
+          echo "here";
           $stmt->close();
           $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=?");
           // bind parameters
@@ -110,6 +115,7 @@
           // execute the sql statement
           $stmt->execute();
           $stmt->close();
+          echo "here";
         }
         else{
           $stmt->close();

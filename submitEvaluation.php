@@ -1,7 +1,5 @@
 <?php
-ini_set('display_startup_errors',1);
-ini_set('display_errors',1);
-error_reporting(-1);
+
   require "models/Evaluation.php";
 /*
   start of saving evaluation to the database
@@ -44,5 +42,7 @@ error_reporting(-1);
    $_SESSION = array();
    session_destroy();
 
+ } else {
+   header("Location: /CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html");
  }
  ?>
