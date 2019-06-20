@@ -1,3 +1,11 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.20
+-- https://www.phpmyadmin.net
+--
+-- Host: tethys.cse.buffalo.edu:3306
+-- Generation Time: Jun 18, 2019 at 01:30 PM
+-- Server version: 5.1.65-log
+-- PHP Version: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -15,26 +23,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Logininfo`
+-- Table structure for table `Teams`
 --
 
-CREATE TABLE IF NOT EXISTS `Logininfo` (
+CREATE TABLE IF NOT EXISTS `Teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `studentname` varchar(32) NOT NULL,
-  `emailaddress` varchar(32) NOT NULL,
-  `confirmationcode` varchar(50) DEFAULT NULL,
-  `coursrenumber` varchar(10) DEFAULT NULL,
+  `teamname` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Dumping data for table `Logininfo`
---
-
-INSERT INTO `Logininfo` (`id`, `studentname`, `emailaddress`, `confirmationcode`, `coursrenumber`) VALUES
-(1, 'Shikhar Chaure', 'schaure@buffalo.edu', NULL, 'CSE542'),
-(3, 'Amanda Pellechia', 'aepellec@buffalo.edu', NULL, 'CSE542'),
-(2, 'Lingbo Hu', 'lingbohu@buffalo.edu', NULL, 'CSE542');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
