@@ -1,4 +1,7 @@
 <?php
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
   require "models/Evaluation.php";
 /*
   start of saving evaluation to the database
@@ -34,17 +37,12 @@
      // get the teamates id of who you evaluated
      $teammateId = $_POST['student_' . $i];
 
-     /*
-     PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE
-     */
-
-     Evaluation::insertReview($studentId, $evaluatorId, $role, $lead, $part, $prof, $quality);
+     Evaluation::insertReview($teammateId, $evaluatorId, $role, $lead, $part, $prof, $quality);
 
    }
    echo "<h1>Thanks for your reviews!</h1>";
    $_SESSION = array();
    session_destroy();
 
-   // redirect to thank you for submission page here
  }
  ?>

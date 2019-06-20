@@ -92,19 +92,28 @@
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
+      $stmt = $conn->prepare("SELECT id FROM Evaluationdata WHERE studentid=? AND Evaluator=?");
+      // bind parameters
+      $stmt->bind_param("ss", $studentId, $evaluatorId);
 
-      $qry=mysqli_query($conn,"SELECT * FROM Evaluationdata WHERE studentid=? AND Evaluator=?");
-      $rowCheck=mysqli_num_rows($qry);
-        if ($rowCheck>0) { // if data exist update the data
+      // execute the sql statement
+      $stmt->execute();
+
+      $stmt->bind_result($checkId);
+
+        if ($stmt->fetch()) { // if data exist update the data
+          $stmt->close();
           $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=?");
           // bind parameters
-          $stmt->bind_param("sssssii", $role, $lead, $part, $prof, $quality, $evaluatorId, $studentId);
+          $stmt->bind_param("sssssii", $role, $lead, $part, $prof, $quality, $studentId, $evaluatorId);
 
           // execute the sql statement
           $stmt->execute();
           $stmt->close();
         }
-        else{ // insert the data if data is not exist
+        else{
+          $stmt->close();
+          // insert the data if data is not exist
           $stmt = $conn->prepare("INSERT INTO Evaluationdata (studentid, Evaluator, role, leadership, participation, professionalism, quality) VALUES(?, ?, ?, ?, ?, ?, ?)");
           $stmt->bind_param("iisssss", $studentId, $evaluatorId, $role, $lead, $part, $prof, $quality);
 
