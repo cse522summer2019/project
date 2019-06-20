@@ -1,7 +1,14 @@
 <?php
+
+  require "models/Evaluation.php";
 /*
   start of saving evaluation to the database
   */
+  $conn = new mysqli("tethys.cse.buffalo.edu", "lingbohu", "50291087", "cse442_542_2019_summer_teamb_db");
+
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
 // get the number of evaluations
  $numEval = $_POST['numEval'];
@@ -28,16 +35,14 @@
      // get the teamates id of who you evaluated
      $teammateId = $_POST['student_' . $i];
 
-     /*
-     PUT CALL TO EVALUATION CLASS TO ENTER SINGLE EVALUATION HERE
-     */
+     Evaluation::insertReview($teammateId, $evaluatorId, $role, $lead, $part, $prof, $quality);
+
    }
-
-
    echo "<h1>Thanks for your reviews!</h1>";
    $_SESSION = array();
    session_destroy();
 
-   // redirect to thank you for submission page here
+ } else {
+   header("Location: /CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html");
  }
  ?>
