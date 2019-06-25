@@ -89,14 +89,17 @@
       }
     }
     public static function insertReview($studentId, $evaluatorId, $role, $lead, $part, $prof, $quality){
+      // get the course id
+      $courseid = $_SESSION['course'];
+
       // connect to the database
       $conn = new mysqli("tethys.cse.buffalo.edu", "lingbohu", "50291087", "cse442_542_2019_summer_teamb_db");
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
-      $stmt = $conn->prepare("SELECT id FROM Evaluationdata WHERE studentid=? AND Evaluator=?");
+      $stmt = $conn->prepare("SELECT id FROM Evaluationdata WHERE studentid=? AND Evaluator=? AND courseid=?");
       // bind parameters
-      $stmt->bind_param("ss", $studentId, $evaluatorId);
+      $stmt->bind_param("sss", $studentId, $evaluatorId, $courseid);
 
       // execute the sql statement
       $stmt->execute();
@@ -105,9 +108,9 @@
 
         if ($stmt->num_rows > 0) { // if data exist update the data
           $stmt->close();
-          $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=?");
+          $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=? AND courseid=?");
           // bind parameters
-          $stmt->bind_param("sssssii", $role, $lead, $part, $prof, $quality, $studentId, $evaluatorId);
+          $stmt->bind_param("sssssiii", $role, $lead, $part, $prof, $quality, $studentId, $evaluatorId, $courseid);
 
           // execute the sql statement
           $stmt->execute();
@@ -116,8 +119,8 @@
         else{
           $stmt->close();
           // insert the data if data is not exist
-          $stmt = $conn->prepare("INSERT INTO Evaluationdata (studentid, Evaluator, role, leadership, participation, professionalism, quality) VALUES(?, ?, ?, ?, ?, ?, ?)");
-          $stmt->bind_param("iisssss", $studentId, $evaluatorId, $role, $lead, $part, $prof, $quality);
+          $stmt = $conn->prepare("INSERT INTO Evaluationdata (studentid, Evaluator, role, leadership, participation, professionalism, quality, courseid) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+          $stmt->bind_param("iisssssi", $studentId, $evaluatorId, $role, $lead, $part, $prof, $quality, $courseid);
 
           // execute the sql statement
           $stmt->execute();
