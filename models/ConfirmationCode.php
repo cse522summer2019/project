@@ -5,7 +5,7 @@ class ConfirmationCode {
   /**
    * Generates the confirmation code so that the user can access the system
    */
-  public static function generateConfirmationCode($email) {
+  public static function generateConfirmationCode($email, $course) {
 
     // connect to the database
     $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
@@ -16,12 +16,27 @@ class ConfirmationCode {
 
     // get rid of special characters for sql string
     $email = $conn->real_escape_string($email);
+    $course = $conn->real_escape_string($course);
 
     // check if the user exists in the system
-    $stmt = $conn->prepare("SELECT * FROM Logininfo WHERE emailaddress=?");
+    $stmt = $conn->prepare("SELECT studentid FROM Logininfo WHERE emailaddress=?");
 
     // bind parameters
     $stmt->bind_param("s", $email);
+
+    // execute the sql statement
+    $stmt->execute();
+
+    $stmt->bind_result($studentid);
+    $stmt->fetch();
+
+    $stmt->close();
+
+    // check if the user exists in the system
+    $stmt = $conn->prepare("SELECT * FROM StudentCourses WHERE courseid=? AND studentid=?");
+
+    // bind parameters
+    $stmt->bind_param("ii", $course, $studentid);
 
     // execute the sql statement
     $stmt->execute();
@@ -53,10 +68,10 @@ class ConfirmationCode {
       $encryptedCode = openssl_encrypt($token, $cipher_method, $enc_key, 0, $iv);
 
       // update the table with the confirmation code
-      $stmt = $conn->prepare("UPDATE Logininfo SET confirmationcode=? WHERE emailaddress=?");
+      $stmt = $conn->prepare("UPDATE StudentCourses SET confirmationcode=? WHERE studentid=? AND courseid=?");
 
       // bind parameters
-      $stmt->bind_param("ss", $encryptedCode, $email);
+      $stmt->bind_param("sii", $encryptedCode, $studentid, $course);
 
       // execute the sql statement
       $stmt->execute();

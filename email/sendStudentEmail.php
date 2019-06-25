@@ -8,26 +8,31 @@ error_reporting(E_ALL);
   require "../models/ConfirmationCode.php";
 
   $sendTo = $_POST["email"];
+  $course = $_POST["course"];
+  $courseName = $_POST['courseName'];
+
   $sendTo = htmlspecialchars($sendTo);
+  $course = htmlspecialchars($course);
+  $courseName = htmlspecialchars($courseName);
 
   // generate the confirmation code and set the person it is getting sent to
-  $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo);
+  $confirmCode = ConfirmationCode::generateConfirmationCode($sendTo, $course);
 
   // if the confimation code returns false, then the user was not found in the system and is not part of a class
   if ($confirmCode == "false") {
-    echo json_encode(array( 'error' => array( 'msg' =>"You are not a valid user in this system")));
+    echo json_encode(array( 'error' => array( 'msg' =>"You are not a valid user in this class")));
   } else {
     // Configure email and code to sent
     $mail = new Email();
     $subject = "Confirmation Code";
 
     // Set alterntive text
-    $message = "Here is your confirmation code: ". $confirmCode . "\n Use this code
+    $message = "Here is your confirmation code for course ". $courseName .": ". $confirmCode . " for course\n Use this code
       to access your evaluation. If it is not used in 15 minutes you will need to request a new one. Enter your code at: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
 
     // set message to send with the code
     $htmlMessage = "
-      Here is your confirmation code:<br/><br/><b>" . $confirmCode . "</b><br/><br/> Use this code to access
+      Here is your confirmation code for course ". $courseName . ":<br/><br/><b>" . $confirmCode . "</b><br/><br/> Use this code to access
       your evaluation. If it is not used in 15 minutes you will need to request a new one.<br>Enter your code at: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
 
     // call the code to send the message

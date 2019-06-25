@@ -113,10 +113,11 @@
           function sendMessage() {
             // get the inputted email
             var email = $("#email").val() || "",
-                course = $("#course").val() || "";
+                course = $("#course").val() || "",
+                courseName = $( "#course option:selected" ).text();
 
             // check if the email is null
-            if (email === "" || course == "Choose Course" || course == "") {
+            if (email === "" || courseName == "Choose Course" || courseName == "") {
               return;
             }
 
@@ -126,7 +127,8 @@
               url: "/CSE442-542/2019-Summer/cse-442b/email/sendStudentEmail.php",
               data: {
                 email: email,
-                course: course
+                course: course,
+                courseName: courseName
               }
             }).then(function(result) {
               // set the modal text
