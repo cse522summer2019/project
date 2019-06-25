@@ -117,10 +117,50 @@ class ConfirmationCode {
       } else {
         return json_encode(array( 'error' => array( 'msg' => "Your code has expired. Please request a new one.")));
       }
-    $stmt->close();
-    $conn->close();
+      $stmt->close();
+      $conn->close();
+    }
+  }
+
+  /**
+   * Get the classes that are part of the evaluation system and return so the user can get a confirmation
+   * code for their class
+   */
+
+  public static function getClasses() {
+    // connect to the database
+    $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
+
+    // check if the user exists in the system
+    $stmt = $conn->prepare("SELECT * FROM Courses");
+
+    // execute the sql statement
+    $stmt->execute();
+
+    // bind the result to th variable
+    $stmt->bind_result($courseid, $courseName);
+
+    // create a list to hold the courses
+    $courseList = array();
+
+    // loop through the courses that was returned and add to list
+    while($stmt->fetch()) {
+      $courseList[] = array("courseId" => $courseid, "courseName" => $courseName);
+    }
+
+    // return the list of courses
+    return $courseList;
+
   }
 }
-}
+
+
+
+
+
+
+
+
+
 
  ?>

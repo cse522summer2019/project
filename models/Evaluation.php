@@ -1,7 +1,5 @@
 <?php
-ini_set('display_startup_errors',1);
-ini_set('display_errors',1);
-error_reporting(-1);
+
   class Evaluation {
     public static function getTeammates($studentId) {
       // connect to the database
@@ -103,7 +101,7 @@ error_reporting(-1);
       $stmt->execute();
       $stmt->store_result();
       $stmt->bind_result($checkId);
-      
+
         if ($stmt->num_rows > 0) { // if data exist update the data
           $stmt->close();
           $stmt = $conn->prepare("UPDATE Evaluationdata SET role=?, leadership=?, participation=?, professionalism=?, quality=? WHERE studentid=? AND Evaluator=?");
