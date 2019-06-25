@@ -92,7 +92,7 @@ class ConfirmationCode {
     $confirmCode = $conn->real_escape_string($confirmCode);
 
     // check if the user exists in the system
-    $stmt = $conn->prepare("SELECT studentid, courseid FROM StudentCourses WHERE confirmationcode=?");
+    $stmt = $conn->prepare("SELECT Courses.courseid, coursename, StudentCourses.studentid FROM StudentCourses inner join Courses on Courses.courseid = StudentCourses.courseid WHERE confirmationcode=?");
 
     // bind parameters
     $stmt->bind_param("s", $confirmCode);
@@ -100,7 +100,7 @@ class ConfirmationCode {
     // execute the sql statement
     $stmt->execute();
 
-    $stmt->bind_result($studentid, $courseid );
+    $stmt->bind_result($courseid, $courseName, $studentid);
     // see if there is any results
     $result = $stmt->fetch();
 
@@ -128,6 +128,7 @@ class ConfirmationCode {
         session_start();
         $_SESSION['studentId'] = $studentid;
         $_SESSION['course'] = $courseid;
+        $_SESSION['courseName'] = $courseName;
 
         return json_encode(array( 'success' => array( 'msg' => "Your code has been accepted!")));
       } else {

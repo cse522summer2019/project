@@ -6,7 +6,7 @@
 
   if (isset($_SESSION['studentId'])) {
     //get the students teammates
-    $result = Evaluation::getTeammates($_SESSION['studentId']);
+    $result = Evaluation::getTeammates($_SESSION['studentId'], $_SESSION['course']);
 
     // return the results
     echo json_encode($result);

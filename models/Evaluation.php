@@ -1,7 +1,8 @@
 <?php
 
   class Evaluation {
-    public static function getTeammates($studentId) {
+
+    public static function getTeammates($studentId, $course) {
       // connect to the database
       $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
       if ($conn->connect_error) {
@@ -22,8 +23,8 @@
       // close the statement
       $stmt->close();
       // get students and evaluations
-      $stmt = $conn->prepare("SELECT Logininfo.studentid, studentname, role, leadership, participation, professionalism, quality FROM StudentTeams LEFT JOIN Logininfo ON Logininfo.studentid = StudentTeams.studentid inner join Evaluationdata on StudentTeams.studentid = Evaluationdata.studentid where teamid=? and evaluator=?");
-      $stmt->bind_param("is", $team, $studentId);
+      $stmt = $conn->prepare("SELECT Logininfo.studentid, studentname, role, leadership, participation, professionalism, quality FROM StudentTeams LEFT JOIN Logininfo ON Logininfo.studentid = StudentTeams.studentid inner join Evaluationdata on StudentTeams.studentid = Evaluationdata.studentid where teamid=? and evaluator=? and courseid=?");
+      $stmt->bind_param("iii", $team, $studentId, $course);
       $stmt->execute();
       $stmt->store_result();
       // bind the result to these variables
@@ -34,9 +35,9 @@
         // create an array to store the team members
         $teamArray = array();
         // prepare the query to get the students team members but not evaluation
-        $stmt = $conn->prepare("SELECT Logininfo.studentid, studentname FROM StudentTeams LEFT JOIN Logininfo ON Logininfo.studentid = StudentTeams.studentid where teamid=?");
+        $stmt = $conn->prepare("SELECT Logininfo.studentid, studentname FROM StudentTeams LEFT JOIN Logininfo ON Logininfo.studentid = StudentTeams.studentid INNER JOIN StudentCourses ON StudentCourses.studentid = Logininfo.studentid where teamid=? and courseid=?");
         // bind the team number to the query
-        $stmt->bind_param("i", $team);
+        $stmt->bind_param("ii", $team, $course);
         // execute the statement
         $result = $stmt->execute();
         // bind the student id to the student variable
@@ -53,7 +54,7 @@
           }
         }
         // return array in json formatting
-        return array('self' => array('studentId' => intval($studentId), 'studentName' => $name), 'team' => $teamArray);
+        return array('courseName' => $_SESSION['courseName'], 'self' => array('studentId' => intval($studentId), 'studentName' => $studentName), 'team' => $teamArray);
         // close the statement and connection
         $stmt->close();
         $conn->close();
@@ -82,7 +83,7 @@
           }
         }
         // return array in json formatting
-        return array('self' => array('studentId' => intval($studentId), 'studentName' => $name, 'evaluation' => array('role' => $studentRole, 'leadership' => $studentLead, 'participation' => $studentPart, 'professionalism' => $studentProf, 'quality' => $studentQual)), 'team' => $teamArray);
+        return array('courseName' => $_SESSION['courseName'], 'self' => array('studentId' => intval($studentId), 'studentName' => $studentName, 'evaluation' => array('role' => $studentRole, 'leadership' => $studentLead, 'participation' => $studentPart, 'professionalism' => $studentProf, 'quality' => $studentQual)), 'team' => $teamArray);
         $stmt->close();
         $conn->close();
       }
