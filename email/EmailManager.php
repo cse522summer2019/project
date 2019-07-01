@@ -31,7 +31,7 @@
              $this->isHTML(true);
              $this->setFrom(self::from);
              // $this->SMTPDebug = 2; //Uncomment to show email errors
-             $this->FromName = 'CSE 442/542 Evaluation Code';
+             $this->FromName = 'Course Evaluation Code';
          }
         /**
          * Sends an email to an array of addresses

@@ -6,17 +6,16 @@ $(document).ready(function () {
   }).then(function(result) {
     // parse the json
     result = JSON.parse(result);
-
+    document.getElementById("course").innerHTML = "Welcome to Evaluation Page for Course: " + result.courseName;
     if (result.error == false) {
+      console.log("here");
       window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
     } else {
       document.getElementById("numEval").value = (result.team.length + 1);
-      console.log(result.self);
       // add your self evaluation to the page
       addSingleEvaluation(result.self, true, 0);
       // add the teammates evaluation to the page
       result.team.map(function(obj, index) {
-          console.log(obj);
         addSingleEvaluation(obj, false, index + 1);
       });
     }

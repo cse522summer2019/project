@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10.20
--- https://www.phpmyadmin.net
---
--- Host: tethys.cse.buffalo.edu:3306
--- Generation Time: Jun 18, 2019 at 01:30 PM
--- Server version: 5.1.65-log
--- PHP Version: 5.3.3
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -27,10 +18,32 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Teams` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `teamid` int(11) NOT NULL AUTO_INCREMENT,
   `teamname` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  `courseid` int(11) NOT NULL,
+  PRIMARY KEY (`teamid`),
+  KEY `courseid` (`courseid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `Teams`
+--
+
+INSERT INTO `Teams` (`teamid`, `teamname`, `courseid`) VALUES
+(14, 'Team A', 1),
+(15, 'Team B', 1),
+(16, 'Team C', 2),
+(17, 'Team D', 3);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Teams`
+--
+ALTER TABLE `Teams`
+  ADD CONSTRAINT `Teams_ibfk_1` FOREIGN KEY (`courseid`) REFERENCES `Courses` (`courseid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
