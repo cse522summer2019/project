@@ -73,8 +73,20 @@ public class CalculateScores {
 						individualSum =  rs2.getInt("role")+rs2.getInt("participation")
 						+rs2.getInt("professionalism")+rs2.getInt("leadership")
 						+rs2.getInt("quality");
-						System.out.print("totalScore "+individualSum)
+						totalIndividualSum = totalIndividualSum+individualSum;
+						map.put(rs2.getString("emailaddress"),totalIndividualSum);
+						totalSum = totalSum + individualSum;
 					}
+				}
+			}
+			DecimalFormat twoDForm = new DecimalFormat("#.#");
+			for(String k : list) {
+				if(map.get(k)!=null) {
+					normalizedScore =(map.get(k)/totalSum);
+					System.out.println(k +"\t\t\t"+ twoDForm.format(normalizedScore));
+				}
+				else {
+					System.out.println(k +"\t\t\t"+"0");
 				}
 			}
 					
