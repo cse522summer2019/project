@@ -79,17 +79,43 @@ public class CalculateScores {
 					}
 				}
 			}
-			DecimalFormat twoDForm = new DecimalFormat("#.#");
-			for(String k : list) {
-				if(map.get(k)!=null) {
-					normalizedScore =(map.get(k)/totalSum);
-					System.out.println(k +"\t\t\t"+ twoDForm.format(normalizedScore));
+			if(empty == false && emptyRs3==false ) {
+				FileWriter csvWriter = null;
+				//Write to csv file.
+				if(args[1].contains(".")) {
+					 csvWriter = new FileWriter(args[1]);
 				}
 				else {
-					System.out.println(k +"\t\t\t"+"0");
+					 csvWriter = new FileWriter(args[1]+".csv");
 				}
+				DecimalFormat twoDForm = new DecimalFormat("#.#");
+				System.out.println("Name \t\t\t\t\t"+"Score");
+				csvWriter.append("Normalised scores");
+				csvWriter.append("\n");
+				csvWriter.append("Email");
+				csvWriter.append(",");
+				csvWriter.append("Score");
+				for(String k : list) {
+					csvWriter.append("\n");
+					csvWriter.append(k);
+					csvWriter.append(",");
+					if(map.get(k)!=null) {
+						normalizedScore =(map.get(k)/totalSum);
+						csvWriter.append(twoDForm.format(normalizedScore).toString());
+						System.out.println(k +"\t\t\t"+ twoDForm.format(normalizedScore));
+					}
+					else {
+						System.out.println(k +"\t\t\t"+"0");
+						csvWriter.append("0");	
+					}
+				}
+				csvWriter.flush();  
+				csvWriter.close();
 			}
-					
+			else if(emptyRs3==true && empty == false)
+				System.out.println("No students enrolled in this course.");
+			else
+				System.out.println("No course of this name.");
 		}
 		catch (Exception e) {
 			// TODO: handle exception
