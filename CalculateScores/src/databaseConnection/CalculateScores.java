@@ -59,8 +59,21 @@ public class CalculateScores {
 					ResultSet rs3 = pst.executeQuery();
 					while(rs3.next()) {
 						emptyRs3 = false;
-						System.out.println(rs3.getString("emailaddress"));
 						list.add(rs3.getString("emailaddress"));
+					}
+					//Get evaluation
+					String sql = "select * from Evaluationdata inner join Logininfo on Evaluationdata.studentid = Logininfo.studentid "
+							+ " and Evaluationdata.studentid = ? and Evaluationdata.courseid = ?";
+					pst = con.prepareStatement(sql);
+					pst.setInt(1, pstRs.getInt("studentid"));
+					pst.setInt(2, courseId);
+					ResultSet rs2 = pst.executeQuery();
+					while(rs2.next()) {
+						//emptyRs2 = false;
+						individualSum =  rs2.getInt("role")+rs2.getInt("participation")
+						+rs2.getInt("professionalism")+rs2.getInt("leadership")
+						+rs2.getInt("quality");
+						System.out.print("totalScore "+individualSum)
 					}
 				}
 			}
