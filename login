@@ -35,7 +35,7 @@
   <!-- Header -->
   <div class="jumbotron">
      <h3>Login to Evaluation System</h3>
-     <p> Enter your UB Email to get a confirmation code to access your evaluation. The code must be used within 15 minutes or you must request a new one.</p>
+     <p> Enter your UB Email and select the course number of the course you would like to evaluate to get a confirmation code to access your evaluation. The code must be used within 15 minutes or you must request a new one.</p>
   </div>
 
     <div class="row">
@@ -43,10 +43,18 @@
 
       <!-- Email form to get a confirmation code -->
       <form>
-           <h2 class="text-center">Enter UB Email:</h2>
+          <h2 class="text-center">Enter UB Email:</h2>
           <br/>
           <div class="form-group">
               <input type="email" class="form-control" id="email" placeholder="Email" maxlength="30" >
+          </div>
+          <br>
+          <h2 class="text-center">Choose Class:</h2>
+          <br/>
+          <div class="form-group">
+              <select class="form-control" id="course" placeholder="Course Number" maxlength="30" >
+                <option>Choose Course</option>
+              </select>
           </div>
           <div class="align-center">
               <button type="button" onclick=" event.preventDefault(); sendMessage()" class="btn btn-primary" id="login">Get Code</button>
@@ -69,6 +77,26 @@
       </div>
 
       <script>
+          // autopopulate the course list in the select box
+          $(document).ready(function() {
+            // get the courses
+            $.ajax({
+              type: "GET",
+              url: "/CSE442-542/2019-Summer/cse-442b/getClasses.php"
+            }).then(function(result) {
+              // parse the json string
+              result = JSON.parse(result);
+
+              // loop through the course objects
+              result.courses.map(function(course) {
+                // get the select box element
+                select = document.getElementById('course');
+
+                // add another option for the class
+                select.options[select.options.length] = new Option(course.courseName, course.courseId);
+              });
+            });
+          });
 
          // bind enter key to send a message
           $(document).keypress(function(e){
@@ -84,10 +112,12 @@
 
           function sendMessage() {
             // get the inputted email
-            var email = $("#email").val() || "";
+            var email = $("#email").val() || "",
+                course = $("#course").val() || "",
+                courseName = $( "#course option:selected" ).text();
 
             // check if the email is null
-            if (email === "") {
+            if (email === "" || courseName == "Choose Course" || courseName == "") {
               return;
             }
 
@@ -95,7 +125,11 @@
             $.ajax({
               type: "POST",
               url: "/CSE442-542/2019-Summer/cse-442b/email/sendStudentEmail.php",
-              data: {email: email}
+              data: {
+                email: email,
+                course: course,
+                courseName: courseName
+              }
             }).then(function(result) {
               // set the modal text
               if(result.indexOf("error")>-1){
@@ -104,11 +138,13 @@
 
                 // clear the email value
                 $("#email").val("");
+                $("#course").val("Choose Course");
                 $("#alertModal").modal('show');
                 return;
               }
               // clear the email value
               $("#email").val("");
+              $("#course").val("Choose Course");
 
               // show the modal
               window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html"

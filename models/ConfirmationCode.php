@@ -5,7 +5,7 @@ class ConfirmationCode {
   /**
    * Generates the confirmation code so that the user can access the system
    */
-  public static function generateConfirmationCode($email) {
+  public static function generateConfirmationCode($email, $course) {
 
     // connect to the database
     $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
@@ -16,12 +16,27 @@ class ConfirmationCode {
 
     // get rid of special characters for sql string
     $email = $conn->real_escape_string($email);
+    $course = $conn->real_escape_string($course);
 
     // check if the user exists in the system
-    $stmt = $conn->prepare("SELECT * FROM Logininfo WHERE emailaddress=?");
+    $stmt = $conn->prepare("SELECT studentid FROM Logininfo WHERE emailaddress=?");
 
     // bind parameters
     $stmt->bind_param("s", $email);
+
+    // execute the sql statement
+    $stmt->execute();
+
+    $stmt->bind_result($studentid);
+    $stmt->fetch();
+
+    $stmt->close();
+
+    // check if the user exists in the system
+    $stmt = $conn->prepare("SELECT * FROM StudentCourses WHERE courseid=? AND studentid=?");
+
+    // bind parameters
+    $stmt->bind_param("ii", $course, $studentid);
 
     // execute the sql statement
     $stmt->execute();
@@ -53,10 +68,10 @@ class ConfirmationCode {
       $encryptedCode = openssl_encrypt($token, $cipher_method, $enc_key, 0, $iv);
 
       // update the table with the confirmation code
-      $stmt = $conn->prepare("UPDATE Logininfo SET confirmationcode=? WHERE emailaddress=?");
+      $stmt = $conn->prepare("UPDATE StudentCourses SET confirmationcode=? WHERE studentid=? AND courseid=?");
 
       // bind parameters
-      $stmt->bind_param("ss", $encryptedCode, $email);
+      $stmt->bind_param("sii", $encryptedCode, $studentid, $course);
 
       // execute the sql statement
       $stmt->execute();
@@ -77,7 +92,7 @@ class ConfirmationCode {
     $confirmCode = $conn->real_escape_string($confirmCode);
 
     // check if the user exists in the system
-    $stmt = $conn->prepare("SELECT studentid FROM Logininfo WHERE confirmationcode=?");
+    $stmt = $conn->prepare("SELECT Courses.courseid, coursename, StudentCourses.studentid FROM StudentCourses inner join Courses on Courses.courseid = StudentCourses.courseid WHERE confirmationcode=?");
 
     // bind parameters
     $stmt->bind_param("s", $confirmCode);
@@ -85,7 +100,7 @@ class ConfirmationCode {
     // execute the sql statement
     $stmt->execute();
 
-    $stmt->bind_result($id);
+    $stmt->bind_result($courseid, $courseName, $studentid);
     // see if there is any results
     $result = $stmt->fetch();
 
@@ -111,16 +126,58 @@ class ConfirmationCode {
       if (900 > ($now - $tokenParams[1])) {
         // start the session and set the student id
         session_start();
-        $_SESSION['studentId'] = $id;
+        $_SESSION['studentId'] = $studentid;
+        $_SESSION['course'] = $courseid;
+        $_SESSION['courseName'] = $courseName;
 
         return json_encode(array( 'success' => array( 'msg' => "Your code has been accepted!")));
       } else {
         return json_encode(array( 'error' => array( 'msg' => "Your code has expired. Please request a new one.")));
       }
-    $stmt->close();
-    $conn->close();
+      $stmt->close();
+      $conn->close();
+    }
+  }
+
+  /**
+   * Get the classes that are part of the evaluation system and return so the user can get a confirmation
+   * code for their class
+   */
+
+  public static function getClasses() {
+    // connect to the database
+    $conn = new mysqli("tethys.cse.buffalo.edu", "aepellec", "50285732", "cse442_542_2019_summer_teamb_db");
+
+    // check if the user exists in the system
+    $stmt = $conn->prepare("SELECT * FROM Courses");
+
+    // execute the sql statement
+    $stmt->execute();
+
+    // bind the result to th variable
+    $stmt->bind_result($courseid, $courseName);
+
+    // create a list to hold the courses
+    $courseList = array();
+
+    // loop through the courses that was returned and add to list
+    while($stmt->fetch()) {
+      $courseList[] = array("courseId" => $courseid, "courseName" => $courseName);
+    }
+
+    // return the list of courses
+    return $courseList;
+
   }
 }
-}
+
+
+
+
+
+
+
+
+
 
  ?>

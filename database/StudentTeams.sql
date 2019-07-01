@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10.20
--- https://www.phpmyadmin.net
---
--- Host: tethys.cse.buffalo.edu:3306
--- Generation Time: Jun 18, 2019 at 01:30 PM
--- Server version: 5.1.65-log
--- PHP Version: 5.3.3
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -33,7 +24,21 @@ CREATE TABLE IF NOT EXISTS `StudentTeams` (
   PRIMARY KEY (`id`),
   KEY `teamid` (`teamid`),
   KEY `studentid` (`studentid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `StudentTeams`
+--
+
+INSERT INTO `StudentTeams` (`id`, `teamid`, `studentid`) VALUES
+(1, 14, 1),
+(2, 14, 3),
+(3, 15, 2),
+(4, 15, 4),
+(6, 16, 2),
+(7, 17, 3),
+(8, 17, 4),
+(9, 16, 3);
 
 --
 -- Constraints for dumped tables
@@ -44,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `StudentTeams` (
 --
 ALTER TABLE `StudentTeams`
   ADD CONSTRAINT `student_id_fk` FOREIGN KEY (`studentid`) REFERENCES `Logininfo` (`studentid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `teamid_fk` FOREIGN KEY (`teamid`) REFERENCES `Teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `teamid_fk` FOREIGN KEY (`teamid`) REFERENCES `Teams` (`teamid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
