@@ -4,7 +4,7 @@
   // start the session for the users id
   session_start();
 
-  if (isset($_SESSION['studentId'])) {
+  if (isset($_SESSION['studentId']) && isset($_SESSION['course'])) {
     //get the students teammates
     $result = Evaluation::getTeammates($_SESSION['studentId'], $_SESSION['course']);
 

@@ -8,6 +8,7 @@ $(document).ready(function () {
     result = JSON.parse(result);
     document.getElementById("course").innerHTML = "Welcome to Evaluation Page for Course: " + result.courseName;
     if (result.error == false) {
+      console.log("here");
       window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html";
     } else {
       document.getElementById("numEval").value = (result.team.length + 1);

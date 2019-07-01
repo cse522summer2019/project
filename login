@@ -138,11 +138,13 @@
 
                 // clear the email value
                 $("#email").val("");
+                $("#course").val("Choose Course");
                 $("#alertModal").modal('show');
                 return;
               }
               // clear the email value
               $("#email").val("");
+              $("#course").val("Choose Course");
 
               // show the modal
               window.location.href = "/CSE442-542/2019-Summer/cse-442b/ConfirmationCodePage.html"

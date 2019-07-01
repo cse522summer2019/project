@@ -11,9 +11,9 @@
       // escape special characters
       $studentId = $conn->real_escape_string($studentId);
       // prepare sql statement for getting the students team
-      $stmt = $conn->prepare("SELECT teamid FROM StudentTeams WHERE studentid=?");
+      $stmt = $conn->prepare("SELECT StudentTeams.teamid FROM StudentTeams INNER JOIN Teams ON Teams.teamid=StudentTeams.teamid WHERE Teams.courseid=? AND StudentTeams.studentid=?");
       // bind parameters
-      $stmt->bind_param("i", $studentId);
+      $stmt->bind_param("ii", $course, $studentId);
       // execute the sql statement
       $stmt->execute();
       // bind the column results to varaibles
